@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="net.pantas.truefalsequiz.MainActivity">
+
+	<android.support.constraint.ConstraintLayout
+		android:id="@+id/game_screen"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/question"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="8dp"
+			android:layout_marginRight="8dp"
+			android:layout_marginTop="8dp"
+			android:text=""
+			android:textSize="24sp"
+			app:layout_constraintBottom_toBottomOf="@+id/guideline"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="Question?" />
+
+		<Button
+			android:id="@+id/btn_true"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="True"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/guideline"
+			app:layout_constraintRight_toLeftOf="@+id/btn_false"/>
+
+		<Button
+			android:id="@+id/btn_false"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginRight="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="False"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toRightOf="@+id/btn_true"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+		<android.support.constraint.Guideline
+			android:id="@+id/guideline"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintGuide_percent="0.5" />
+
+	</android.support.constraint.ConstraintLayout>
+
+	<android.support.constraint.ConstraintLayout
+		android:id="@+id/answer_screen"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@android:color/holo_green_light">
+
+		<TextView
+			android:id="@+id/answer"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="8dp"
+			android:layout_marginRight="8dp"
+			android:layout_marginTop="8dp"
+			android:text=""
+			android:textSize="24sp"
+			app:layout_constraintBottom_toTopOf="@id/btn_next"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="Correct!" />
+
+		<Button
+			android:id="@+id/btn_next"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginRight="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="Next question"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toRightOf="parent"
+			app:layout_constraintRight_toRightOf="parent" />
+
+	</android.support.constraint.ConstraintLayout>
+
+	<android.support.constraint.ConstraintLayout
+		android:id="@+id/title_screen"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@android:color/holo_blue_bright">
+
+		<TextView
+			android:id="@+id/title_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="8dp"
+			android:layout_marginRight="8dp"
+			android:layout_marginTop="8dp"
+			android:textStyle="bold"
+			android:textColor="@android:color/white"
+			android:text="T/F Quiz!"
+			android:textSize="36sp"
+			app:layout_constraintBottom_toTopOf="@id/btn_start"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.40" />
+
+		<TextView
+			android:id="@+id/score_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="8dp"
+			android:layout_marginRight="8dp"
+			android:layout_marginTop="8dp"
+			android:text=""
+			android:textSize="20sp"
+			app:layout_constraintBottom_toTopOf="@id/btn_start"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="Your hit rate was 50%"
+			app:layout_constraintVertical_bias="0.60"/>
+
+		<Button
+			android:id="@+id/btn_start"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginRight="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="Start!"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toRightOf="parent"
+			app:layout_constraintRight_toRightOf="parent" />
+
+	</android.support.constraint.ConstraintLayout>
+
+
+
+</FrameLayout>

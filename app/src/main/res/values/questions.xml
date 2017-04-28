@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<array name="questions">
+		<item>11% of people are left handed|true</item>
+		<item>August has the highest percentage of births|true</item>
+		<item>Unless food is mixed with saliva you can\'t taste it|true</item>
+		<item>The average person falls asleep in 7 minutes|true</item>
+		<item>An ostrich\'s eye is bigger than its brain|true</item>
+		<item>Lemons contain more sugar than strawberries|true</item>
+		<item>85% of plant life is found in the ocean|true</item>
+		<item>Ralph Lauren\'s original name was Ralph Lifshitz|true</item>
+		<item>Rabbits like licorice|true</item>
+		<item>The Hawaiian alphabet has 13 letters|true</item>
+		<item>\'Topolino\' is the name for Mickey Mouse Italy|true</item>
+		<item>A lobsters blood is colorless but when exposed to oxygen it turns blue|true</item>
+		<item>Armadillos have 4 babies at a time and are all the same sex|true</item>
+		<item>Reindeer like bananas|true</item>
+		<item>The longest recorded flight of a chicken was 13 seconds|true</item>
+		<item>8% of people have an extra rib|true</item>
+		<item>The most commonly used letter in the alphabet is A|false</item>
+		<item>The 3 most common languages in the world are Mandarin Chinese, French and English|false</item>
+		<item>Dogs need gravity to swallow|false</item>
+		<item>Mount Everlast is the tallest mountain on Earth|false</item>
+		<item>When you flush in Australia, the water swirls in the opposite direction than in US and Europe|false</item>
+		<item>The smallest bones in the human body are found in your finger|false</item>
+		<item>Sex is the number one thing that couples argue about|false</item>
+		<item>Spiders are insects, not arachnids|false</item>
+		<item>M&amp;M\'s chocolate stands for "Mickey Mouse", its inventor\'s favorite cartoon character|false</item>
+		<item>Only about 30% of the worlds population kisses|false</item>
+		<item>Coca-Cola originally contained cocaine|true</item>
+		<item>All insects have 8 legs|false</item>
+		<item>Australia was originally called New Britain|false</item>
+		<item>Your tongue has 26 bones in it|false</item>
+		<item>The average human brain contains around 78% muscle|false</item>
+	</array>
+</resources>

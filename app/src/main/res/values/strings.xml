@@ -1,3 +1,12 @@
 <resources>
 	<string name="app_name">TrueFalseQuiz</string>
+	<string name="try_again">Try again!</string>
+	<string name="answer_true">True!</string>
+	<string name="answer_false">False!</string>
+	<string name="btn_next_question">Next question</string>
+	<string name="btn_see_your_score">See your score</string>
+	<string name="title_text">T/F Quiz!</string>
+	<string name="btn_start">Start!</string>
+	<string name="btn_true">True</string>
+	<string name="btn_false">False</string>
 </resources>

@@ -8,25 +8,27 @@
 	tools:context="net.pantas.truefalsequiz.MainActivity">
 
 	<android.support.constraint.ConstraintLayout
-		android:id="@+id/game_screen"
+		android:id="@+id/question_screen"
 		android:layout_height="match_parent"
-		android:layout_width="match_parent">
+		android:layout_width="match_parent"
+		android:background="@color/colorQuestion">
 
 		<TextView
-			android:id="@+id/question"
+			android:id="@+id/question_text"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:layout_marginLeft="8dp"
-			android:layout_marginRight="8dp"
-			android:layout_marginTop="8dp"
+			android:layout_marginBottom="30dp"
+			android:layout_marginLeft="30dp"
+			android:layout_marginRight="30dp"
+			android:padding="40dp"
 			android:text=""
+			android:textAlignment="center"
 			android:textSize="24sp"
 			app:layout_constraintBottom_toBottomOf="@+id/guideline"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			tools:text="Question?" />
+			tools:text="A very long question A very long question A very long question A very long question A very long question " />
 
 		<Button
 			android:id="@+id/btn_true"
@@ -36,11 +38,12 @@
 			android:layout_marginEnd="8dp"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
-			android:text="True"
+			android:text="@string/btn_true"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintTop_toTopOf="@+id/guideline"
-			app:layout_constraintRight_toLeftOf="@+id/btn_false"/>
+			app:layout_constraintRight_toLeftOf="@+id/btn_false"
+			android:onClick="onClickBtnTrue"/>
 
 		<Button
 			android:id="@+id/btn_false"
@@ -51,11 +54,12 @@
 			android:layout_marginRight="8dp"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
-			android:text="False"
+			android:text="@string/btn_false"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintLeft_toRightOf="@+id/btn_true"
 			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/guideline" />
+			app:layout_constraintTop_toTopOf="@+id/guideline"
+			android:onClick="onClickBtnFalse"/>
 
 		<android.support.constraint.Guideline
 			android:id="@+id/guideline"
@@ -70,10 +74,10 @@
 		android:id="@+id/answer_screen"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@android:color/holo_green_light">
+		android:background="@color/colorTrue">
 
 		<TextView
-			android:id="@+id/answer"
+			android:id="@+id/answer_text"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="8dp"
@@ -82,7 +86,7 @@
 			android:layout_marginTop="8dp"
 			android:text=""
 			android:textSize="24sp"
-			app:layout_constraintBottom_toTopOf="@id/btn_next"
+			app:layout_constraintBottom_toTopOf="@+id/btn_next"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
@@ -97,10 +101,10 @@
 			android:layout_marginRight="8dp"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
-			android:text="Next question"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintLeft_toRightOf="parent"
-			app:layout_constraintRight_toRightOf="parent" />
+			app:layout_constraintRight_toRightOf="parent"
+			android:onClick="onClickBtnNext"/>
 
 	</android.support.constraint.ConstraintLayout>
 
@@ -108,21 +112,21 @@
 		android:id="@+id/title_screen"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@android:color/holo_blue_bright">
+		android:background="@color/colorTitle"
+		android:textAlignment="center">
 
 		<TextView
-			android:id="@+id/title_text"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="8dp"
 			android:layout_marginLeft="8dp"
 			android:layout_marginRight="8dp"
 			android:layout_marginTop="8dp"
-			android:textStyle="bold"
+			android:text="@string/title_text"
 			android:textColor="@android:color/white"
-			android:text="T/F Quiz!"
 			android:textSize="36sp"
-			app:layout_constraintBottom_toTopOf="@id/btn_start"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/btn_start"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
@@ -139,12 +143,13 @@
 			android:layout_marginTop="8dp"
 			android:text=""
 			android:textSize="20sp"
-			app:layout_constraintBottom_toTopOf="@id/btn_start"
+			android:visibility="gone"
+			app:layout_constraintBottom_toTopOf="@+id/btn_start"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			tools:text="Your hit rate was 50%"
-			app:layout_constraintVertical_bias="0.60"/>
+			app:layout_constraintVertical_bias="0.60"
+			tools:text="Your hit rate was 50%" />
 
 		<Button
 			android:id="@+id/btn_start"
@@ -155,13 +160,12 @@
 			android:layout_marginRight="8dp"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
-			android:text="Start!"
+			android:onClick="onClickBtnStart"
+			android:text="@string/btn_start"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintLeft_toRightOf="parent"
 			app:layout_constraintRight_toRightOf="parent" />
 
 	</android.support.constraint.ConstraintLayout>
-
-
 
 </FrameLayout>

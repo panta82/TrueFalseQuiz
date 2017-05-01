@@ -1,10 +1,13 @@
 package net.pantas.truefalsequiz;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,7 +19,7 @@ public class CheatActivity extends AppCompatActivity {
 	private final static String CORRECT_ANSWER_KEY = "CORRECT_ANSWER_KEY";
 	private final static String REVEALED_KEY = "REVEALED_KEY";
 
-	private TextView mAnswer;
+	private TextView mAnswerTextView;
 	private Button mRevealButton;
 
 	private boolean mCorrectAnswer;
@@ -27,7 +30,7 @@ public class CheatActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cheat);
 
-		mAnswer = (TextView) findViewById(R.id.cheat_answer);
+		mAnswerTextView = (TextView) findViewById(R.id.cheat_answer);
 		mRevealButton = (Button) findViewById(R.id.cheat_reveal_btn);
 
 		if (savedInstanceState != null) {
@@ -41,7 +44,7 @@ public class CheatActivity extends AppCompatActivity {
 		}
 
 		if (mRevealed) {
-			setRevealed();
+			setRevealed(false);
 		}
 	}
 
@@ -52,11 +55,27 @@ public class CheatActivity extends AppCompatActivity {
 		super.onSaveInstanceState(outState);
 	}
 
-	private void setRevealed() {
+	private void setRevealed(boolean animate) {
 		mRevealed = true;
-		mRevealButton.setEnabled(false);
-		mAnswer.setText(mCorrectAnswer ? "TRUE" : "FALSE");
-		mAnswer.setVisibility(View.VISIBLE);
+		mAnswerTextView.setText(mCorrectAnswer ? "TRUE" : "FALSE");
+		if (!animate || android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
+			mAnswerTextView.setVisibility(View.VISIBLE);
+			mRevealButton.setVisibility(View.INVISIBLE);
+		} else {
+			int cx = mRevealButton.getWidth() / 2;
+			int cy = mRevealButton.getHeight() / 2;
+			float radius = mRevealButton.getWidth();
+			Animator anim = ViewAnimationUtils.createCircularReveal(mRevealButton, cx, cy, radius, 0);
+			anim.addListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					super.onAnimationEnd(animation);
+					mAnswerTextView.setVisibility(View.VISIBLE);
+					mRevealButton.setVisibility(View.INVISIBLE);
+				}
+			});
+			anim.start();
+		}
 
 		Intent returnIntent = new Intent();
 		returnIntent.putExtra(EXTRA_ANSWER_SHOWN, true);
@@ -64,7 +83,11 @@ public class CheatActivity extends AppCompatActivity {
 	}
 
 	public void onClickBtnCheatReveal(View view) {
-		setRevealed();
+		setRevealed(true);
+	}
+
+	public void onClickBtnCheatBack(View view) {
+		this.finish();
 	}
 
 	public static Intent newIntent(Context packageContext, boolean correctAnswer) {
@@ -75,9 +98,5 @@ public class CheatActivity extends AppCompatActivity {
 
 	public static boolean wasResultShown(int resultCode, Intent intent) {
 		return resultCode == RESULT_OK && intent != null && intent.hasExtra(EXTRA_ANSWER_SHOWN) && intent.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
-	}
-
-	public void onClickBtnCheatBack(View view) {
-		this.finish();
 	}
 }

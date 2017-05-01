@@ -10,4 +10,7 @@
 	<string name="btn_true">True</string>
 	<string name="btn_false">False</string>
 	<string name="btn_reveal_answer">Reveal answer</string>
+	<string name="cheat_btn_reveal">Reveal</string>
+	<string name="cheat_btn_back">Back</string>
+	<string name="cheat_are_you_sure_you_want_to_see_the_answer">Are you sure you want to see the answer?</string>
 </resources>

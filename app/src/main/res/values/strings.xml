@@ -9,4 +9,5 @@
 	<string name="btn_start">Start!</string>
 	<string name="btn_true">True</string>
 	<string name="btn_false">False</string>
+	<string name="btn_reveal_answer">Reveal answer</string>
 </resources>

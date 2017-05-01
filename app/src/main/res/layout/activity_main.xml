@@ -8,69 +8,6 @@
 	tools:context="net.pantas.truefalsequiz.MainActivity">
 
 	<android.support.constraint.ConstraintLayout
-		android:id="@+id/question_screen"
-		android:layout_height="match_parent"
-		android:layout_width="match_parent"
-		android:background="@color/colorQuestion">
-
-		<TextView
-			android:id="@+id/question_text"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="30dp"
-			android:layout_marginLeft="30dp"
-			android:layout_marginRight="30dp"
-			android:padding="40dp"
-			android:text=""
-			android:textAlignment="center"
-			android:textSize="24sp"
-			app:layout_constraintBottom_toBottomOf="@+id/guideline"
-			app:layout_constraintLeft_toLeftOf="parent"
-			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			tools:text="A very long question A very long question A very long question A very long question A very long question " />
-
-		<Button
-			android:id="@+id/btn_true"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:layout_marginEnd="8dp"
-			android:layout_marginStart="8dp"
-			android:layout_marginTop="8dp"
-			android:text="@string/btn_true"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintLeft_toLeftOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/guideline"
-			app:layout_constraintRight_toLeftOf="@+id/btn_false"
-			android:onClick="onClickBtnTrue"/>
-
-		<Button
-			android:id="@+id/btn_false"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:layout_marginEnd="8dp"
-			android:layout_marginRight="8dp"
-			android:layout_marginStart="8dp"
-			android:layout_marginTop="8dp"
-			android:text="@string/btn_false"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintLeft_toRightOf="@+id/btn_true"
-			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/guideline"
-			android:onClick="onClickBtnFalse"/>
-
-		<android.support.constraint.Guideline
-			android:id="@+id/guideline"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			app:layout_constraintGuide_percent="0.5" />
-
-	</android.support.constraint.ConstraintLayout>
-
-	<android.support.constraint.ConstraintLayout
 		android:id="@+id/answer_screen"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -165,6 +102,83 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintLeft_toRightOf="parent"
 			app:layout_constraintRight_toRightOf="parent" />
+
+	</android.support.constraint.ConstraintLayout>
+
+	<android.support.constraint.ConstraintLayout
+		android:id="@+id/question_screen"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:background="@color/colorQuestion">
+
+		<TextView
+			android:id="@+id/question_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="30dp"
+			android:layout_marginLeft="30dp"
+			android:layout_marginRight="30dp"
+			android:padding="40dp"
+			android:text=""
+			android:textAlignment="center"
+			android:textSize="24sp"
+			app:layout_constraintBottom_toBottomOf="@+id/guideline"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="A very long question A very long question A very long question A very long question A very long question " />
+
+		<Button
+			android:id="@+id/btn_true"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="@string/btn_true"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/guideline"
+			app:layout_constraintRight_toLeftOf="@+id/btn_false"
+			android:onClick="onClickBtnTrue"/>
+
+		<Button
+			android:id="@+id/btn_false"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginRight="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="@string/btn_false"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toRightOf="@+id/btn_true"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/guideline"
+			android:onClick="onClickBtnFalse"/>
+
+		<android.support.constraint.Guideline
+			android:id="@+id/guideline"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintGuide_percent="0.5" />
+
+		<Button
+			android:id="@+id/btn_reveal_answer"
+			style="@style/Widget.AppCompat.Button.Small"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="8dp"
+			android:layout_marginRight="8dp"
+			android:text="@string/btn_reveal_answer"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			android:onClick="onClickRevealAnswer"/>
 
 	</android.support.constraint.ConstraintLayout>
 

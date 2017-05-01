@@ -1,14 +1,13 @@
 package net.pantas.truefalsequiz;
 
-import android.opengl.Visibility;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import net.pantas.truefalsequiz.models.Question;
 
 import java.util.ArrayList;
@@ -17,9 +16,13 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 	private static final int QUESTIONS = 5;
+
 	private static final String CURRENT_QUESTION_KEY = "CURRENT_QUESTION_KEY";
 	private static final String CORRECT_GUESSES_KEY = "CORRECT_GUESSES_KEY";
+	private static final String CHEATS_KEY = "CHEATS_KEY";
 	private static final String RANDOM_SEED_KEY = "RANDOM_SEED_KEY";
+
+	private static final int REQUEST_CODE_CHEAT = 0;
 
 	private ViewGroup mTitleScreen;
 	private Button mBtnStart;
@@ -35,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
 	private ArrayList<Question> mQuestions;
 	private int mCurrentQuestion;
 	private int mCorrectGuesses;
+	private int mCheats;
 	private long mRandomSeed;
-	private int mQuestionCount = QUESTIONS;
+	private int mQuestionCount = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +68,16 @@ public class MainActivity extends AppCompatActivity {
 		}
 		mCurrentQuestion = savedInstanceState.getInt(CURRENT_QUESTION_KEY, -1);
 		mCorrectGuesses = savedInstanceState.getInt(CORRECT_GUESSES_KEY, 0);
+		mCheats = savedInstanceState.getInt(CHEATS_KEY, 0);
 		mRandomSeed = savedInstanceState.getLong(RANDOM_SEED_KEY, 0);
 
 		if (mCurrentQuestion >= 0) {
-			randomizeQuestions(mRandomSeed);
-			showQuestion();
+			if (mCurrentQuestion < mQuestionCount) {
+				randomizeQuestions(mRandomSeed);
+				showQuestion();
+			} else {
+				showTitle(false);
+			}
 		} else {
 			showTitle(true);
 		}
@@ -78,9 +87,22 @@ public class MainActivity extends AppCompatActivity {
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putInt(CURRENT_QUESTION_KEY, mCurrentQuestion);
 		outState.putInt(CORRECT_GUESSES_KEY, mCorrectGuesses);
+		outState.putInt(CHEATS_KEY, mCheats);
 		outState.putLong(RANDOM_SEED_KEY, mRandomSeed);
 
 		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == REQUEST_CODE_CHEAT) {
+			if (CheatActivity.wasResultShown(data)) {
+				Toast.makeText(this, "Cheater!", Toast.LENGTH_SHORT).show();
+				mCheats++;
+			}
+		}
 	}
 
 	private void randomizeQuestions() {
@@ -103,7 +125,11 @@ public class MainActivity extends AppCompatActivity {
 		if (!firstTime) {
 			mBtnStart.setText(R.string.try_again);
 			mScoreText.setVisibility(View.VISIBLE);
-			mScoreText.setText("Your score is " + mCorrectGuesses + " out of " + mQuestionCount);
+			String message = "Your score is " + mCorrectGuesses + " out of " + mQuestionCount;
+			if (mCheats > 0) {
+				message += " (with " + mCheats + " cheats)";
+			}
+			mScoreText.setText(message);
 		}
 
 		mTitleScreen.bringToFront();
@@ -142,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
 		mCurrentQuestion = 0;
 		mCorrectGuesses = 0;
+		mCheats = 0;
 		showQuestion();
 	}
 
@@ -160,7 +187,15 @@ public class MainActivity extends AppCompatActivity {
 			mCurrentQuestion++;
 			showQuestion();
 		} else {
+			mCurrentQuestion++;
 			showTitle(false);
 		}
+	}
+
+	public void onClickRevealAnswer(View view) {
+		if (mCurrentQuestion < 0) {
+			return;
+		}
+		startActivityForResult (CheatActivity.newIntent(this, mQuestions.get(mCurrentQuestion).correctAnswer), REQUEST_CODE_CHEAT);
 	}
 }

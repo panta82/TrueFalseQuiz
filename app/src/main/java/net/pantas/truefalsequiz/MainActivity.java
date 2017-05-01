@@ -1,6 +1,8 @@
 package net.pantas.truefalsequiz;
 
 import android.opengl.Visibility;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +13,13 @@ import net.pantas.truefalsequiz.models.Question;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 	private static final int QUESTIONS = 5;
+	private static final String CURRENT_QUESTION_KEY = "CURRENT_QUESTION_KEY";
+	private static final String CORRECT_GUESSES_KEY = "CORRECT_GUESSES_KEY";
+	private static final String RANDOM_SEED_KEY = "RANDOM_SEED_KEY";
 
 	private ViewGroup mTitleScreen;
 	private Button mBtnStart;
@@ -27,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
 	private Button mBtnNext;
 
 	private ArrayList<Question> mQuestions;
-	private int mCurrentQuestion = -1;
-	private int mCorrectGuesses = 0;
+	private int mCurrentQuestion;
+	private int mCorrectGuesses;
+	private long mRandomSeed;
 	private int mQuestionCount = QUESTIONS;
 
 	@Override
@@ -52,7 +59,44 @@ public class MainActivity extends AppCompatActivity {
 			mQuestions.add(Question.fromRaw(rawQuestion));
 		}
 
-		showTitle(true);
+		if (null == savedInstanceState) {
+			savedInstanceState = new Bundle();
+		}
+		mCurrentQuestion = savedInstanceState.getInt(CURRENT_QUESTION_KEY, -1);
+		mCorrectGuesses = savedInstanceState.getInt(CORRECT_GUESSES_KEY, 0);
+		mRandomSeed = savedInstanceState.getLong(RANDOM_SEED_KEY, 0);
+
+		if (mCurrentQuestion >= 0) {
+			randomizeQuestions(mRandomSeed);
+			showQuestion();
+		} else {
+			showTitle(true);
+		}
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putInt(CURRENT_QUESTION_KEY, mCurrentQuestion);
+		outState.putInt(CORRECT_GUESSES_KEY, mCorrectGuesses);
+		outState.putLong(RANDOM_SEED_KEY, mRandomSeed);
+
+		super.onSaveInstanceState(outState);
+	}
+
+	private void randomizeQuestions() {
+		randomizeQuestions(0);
+	}
+
+	private void randomizeQuestions(long seed) {
+		Random random;
+		if (seed != 0) {
+			random = new Random(seed);
+		} else {
+			random = new Random();
+			mRandomSeed = random.nextLong();
+			random = new Random(mRandomSeed);
+		}
+		Collections.shuffle(mQuestions, random);
 	}
 
 	protected void showTitle(boolean firstTime) {
@@ -88,19 +132,17 @@ public class MainActivity extends AppCompatActivity {
 		mAnswerScreen.bringToFront();
 	}
 
-	protected void showNextQuestion() {
-		if (hasMoreQuestions()) {
-			mCurrentQuestion++;
-		}
+	protected void showQuestion() {
 		mQuestionText.setText(mQuestions.get(mCurrentQuestion).text);
 		mQuestionScreen.bringToFront();
 	}
 
 	public void onClickBtnStart(View view) {
-		Collections.shuffle(mQuestions);
-		mCurrentQuestion = -1;
+		randomizeQuestions();
+
+		mCurrentQuestion = 0;
 		mCorrectGuesses = 0;
-		showNextQuestion();
+		showQuestion();
 	}
 
 	public void onClickBtnTrue(View view) {
@@ -115,7 +157,8 @@ public class MainActivity extends AppCompatActivity {
 
 	public void onClickBtnNext(View view) {
 		if (hasMoreQuestions()) {
-			showNextQuestion();
+			mCurrentQuestion++;
+			showQuestion();
 		} else {
 			showTitle(false);
 		}

@@ -73,8 +73,8 @@ public class CheatActivity extends AppCompatActivity {
 		return intent;
 	}
 
-	public static boolean wasResultShown(Intent intent) {
-		return intent != null && intent.hasExtra(EXTRA_ANSWER_SHOWN) && intent.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
+	public static boolean wasResultShown(int resultCode, Intent intent) {
+		return resultCode == RESULT_OK && intent != null && intent.hasExtra(EXTRA_ANSWER_SHOWN) && intent.getBooleanExtra(EXTRA_ANSWER_SHOWN, false);
 	}
 
 	public void onClickBtnCheatBack(View view) {

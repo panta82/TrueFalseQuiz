@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == REQUEST_CODE_CHEAT) {
-			if (CheatActivity.wasResultShown(data)) {
+			if (CheatActivity.wasResultShown(resultCode, data)) {
 				Toast.makeText(this, "Cheater!", Toast.LENGTH_SHORT).show();
 				mCheats++;
 			}
